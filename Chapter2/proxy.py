@@ -116,9 +116,10 @@ def server_loop(local_host, local_port, remote_host, remote_port, receive_first)
 
     try:
         server.bind((local_host, local_port))
-    except:
+    except Exception as e:
         print "[!!] Failed to listen on %s:%d" % (local_host, local_port)
         print "[!!] Check for other listening sockets or correct permissions."
+        print "[!!] Exception: %s" % e
         sys.exit(0)
 
     print "[*] Listening on %s:%d" % (local_host, local_port)
@@ -161,7 +162,7 @@ def main():
     else:
         receive_first = False
 
-    # now spi up our listening socket
+    # now spin up our listening socket
     server_loop(local_host, local_port, remote_host, remote_port, receive_first)
 
 
