@@ -34,6 +34,8 @@ try:
 except Exception as e:
     print '[-] Listen failed: ' + str(e)
     sys.exit(1)
+except KeyboardInterrupt:
+    sys.exit(0)
 
 print '[+] Got a connection!'
 
