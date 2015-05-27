@@ -7,7 +7,7 @@ import time
 from netaddr import IPNetwork, IPAddress
 
 # host to listen on
-host = "192.168.1.100"
+host = "0.0.0.0"
 
 # subnet to target
 subnet = "192.168.1.0/24"
