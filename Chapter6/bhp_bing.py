@@ -10,6 +10,7 @@ import urllib
 import json
 import re
 import base64
+import threading
 
 bing_api_key = "KEY"
 
@@ -56,11 +57,13 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
             domain = True
 
         bing_query_string = "'ip:%s'" % ip_address
-        self.bing_query(bing_query_string)
+        thread = threading.Thread(target=self.bing_query, args=(bing_query_string,))
+        thread.start()
 
         if domain:
             bing_query_string = "'domain:%s'" % host
-            self.bing_query(bing_query_string)
+            thread = threading.Thread(target=self.bing_query, args=(bing_query_string,))
+            thread.start()
 
     def bing_query(self, bing_query_string):
         print "Performing Bing search: %s" % bing_query_string
