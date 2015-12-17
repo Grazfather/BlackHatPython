@@ -12,7 +12,7 @@ LEFT ALIGNED PRIVATE KEY
 rsakey = RSA.importKey(private_key)
 rsakey = PKCS1_OAEP.new(rsakey)
 
-chunk_size = 256
+chunk_size = 128
 offset = 0
 decrypted = ""
 encrypted = base64.b64decode(encrypted)

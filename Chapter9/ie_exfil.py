@@ -27,7 +27,7 @@ def wait_for_browser(browser):
 
 
 def encrypt_string(plaintext):
-    chunk_size = 256
+    chunk_size = 128
     print "Compressing: %d bytes" % len(plaintext)
     plaintext = zlib.compress(plaintext)
 
